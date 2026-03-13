@@ -55,6 +55,7 @@ const css = `
     min-height: 100vh;
     background: ${BG};
     overflow-x: hidden;
+    font-size: 130%;
   }
 
   .trail-dot {
@@ -159,17 +160,17 @@ const css = `
   }
   .work-item:last-child { border-bottom: none; }
   .work-title {
-    font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    font-family: 'DM Sans', sans-serif; font-size: 1.05rem;
     color: ${TEXT}; flex: 1; font-weight: 300;
   }
   .work-role {
-    color: ${MUTED}; font-size: 0.74rem;
+    color: ${MUTED}; font-size: 0.88rem;
     display: block; margin-bottom: 3px; font-weight: 300;
   }
   .work-title a { color: ${TEXT}; text-decoration: none; text-underline-offset: 3px; }
   .work-title a:hover { text-decoration: underline; }
   .work-sub { color: rgba(26,20,16,0.45); }
-  .work-meta { font-size: 0.72rem; color: ${MUTED}; white-space: nowrap; letter-spacing: 0.05em; }
+  .work-meta { font-size: 0.88rem; color: ${MUTED}; white-space: nowrap; letter-spacing: 0.05em; }
 
   .contact-email {
     font-family: 'Instrument Sans', sans-serif;
@@ -214,7 +215,7 @@ const editorialWorks = [
 const musicWorks = [
   { role: "Guitar, arrangements, production", title: "Dead Finks \u2013 \u201cNew Plastik Abyss\u201d", sub: "Bretford Records", meta: "2026", url: "https://deadfinkera.bandcamp.com/album/new-plastik-abyss" },
   { role: "Bass, songwriting, arrangements, production", title: "Children \u2013 \u201cAus Spitzen Knochen\u201d", sub: "Opus Lazuli Records", meta: "2024", url: "https://ccchildren.bandcamp.com/album/aus-spitzen-knochen" },
-  { role: "Guitar, bass, songwriting, arrangements, production", title: "Children \u2013 \u201cCounterfeit Fire\u201d", sub: "Rapid Eye Records", meta: "2022", url: "https://ccchildren.bandcamp.com/album/counterfeit-fire" },
+  { role: "Bass, songwriting, arrangements, production", title: "Children \u2013 \u201cCounterfeit Fire\u201d", sub: "Rapid Eye Records", meta: "2022", url: "https://ccchildren.bandcamp.com/album/counterfeit-fire" },
   { role: "Guitar, songwriting, arrangements", title: "Diocese \u2013 \u201cDiocese\u201d", sub: "Como Tapes", meta: "2015", url: "https://diocese.bandcamp.com/album/diocese" },
 ];
 
