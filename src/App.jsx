@@ -113,7 +113,7 @@ const css = `
     animation: glitch-shadow 5s infinite;
   }
   .home-intro {
-    font-size: 0.97rem; line-height: 1.85;
+    font-size: 1.05rem; line-height: 1.85;
     color: rgba(26,20,16,0.6); font-weight: 300; max-width: 420px;
   }
 
@@ -131,7 +131,7 @@ const css = `
     margin-bottom: 28px; display: block;
   }
   .about-bio {
-    font-size: 0.95rem; line-height: 1.95;
+    font-size: 1.05rem; line-height: 1.95;
     color: rgba(26,20,16,0.7); font-weight: 300; max-width: 540px;
   }
   .about-bio p + p { margin-top: 1.4em; }
