@@ -7,7 +7,7 @@ document.head.appendChild(fontLink);
 
 const BG    = "#ede6d3";
 const TEXT  = "#1a1410";
-const MUTED = "rgba(26,20,16,0.45)";
+const MUTED = "rgba(26,20,16,0.7)";
 
 const SECTION_COLORS = {
   editorial: { accent: "#e8392a", bg: "rgba(232,57,42,0.06)" },
@@ -20,25 +20,38 @@ const TRAIL_CHARS = ["\u00d7", "\u00b7", "\u2014", "*", "\u25e6", "\u2021", "\u2
 const css = `
   * { margin:0; padding:0; box-sizing:border-box; }
 
-  @keyframes glitch {
-    0%,88%,100% { clip-path:none; transform:none; color:${TEXT}; }
-    89%  { clip-path:inset(8% 0 72% 0);  transform:translate(-7px,0); color:#e8392a; }
-    90%  { clip-path:inset(55% 0 15% 0); transform:translate(7px,0);  color:#2563eb; }
-    91%  { clip-path:inset(25% 0 45% 0); transform:translate(-3px,1px); color:#e8a800; }
-    92%  { clip-path:none; transform:none; color:${TEXT}; }
-    93%  { clip-path:inset(3% 0 82% 0); transform:translate(5px,0); color:#9333ea; }
-    94%  { clip-path:none; transform:none; color:${TEXT}; }
-  }
+  @keyframes blob1 { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(8%,12%) scale(1.08); } 66% { transform: translate(-6%,6%) scale(0.95); } }
+  @keyframes blob2 { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(-10%,-8%) scale(1.05); } 66% { transform: translate(7%,-5%) scale(1.1); } }
+  @keyframes blob3 { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(6%,-10%) scale(0.97); } 66% { transform: translate(-8%,8%) scale(1.06); } }
+  @keyframes blob4 { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(-5%,9%) scale(1.04); } 66% { transform: translate(9%,-6%) scale(0.98); } }
+  @keyframes blob5 { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(7%,5%) scale(1.07); } 66% { transform: translate(-4%,-9%) scale(1.02); } }
 
-  @keyframes glitch-shadow {
-    0%,88%,100% { opacity:0; }
-    89%  { opacity:1; transform:translate(5px,0);   color:#2563eb; clip-path:inset(8% 0 72% 0); }
-    90%  { opacity:1; transform:translate(-5px,0);  color:#e8392a; clip-path:inset(55% 0 15% 0); }
-    92%  { opacity:0; }
-    93%  { opacity:1; transform:translate(-4px,2px); color:#16a34a; clip-path:inset(3% 0 82% 0); }
-    94%  { opacity:0; }
+  .tie-dye {
+    position: relative;
+    isolation: isolate;
   }
-
+  .tie-dye::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: #c9b8d8;
+    overflow: hidden;
+  }
+  .tie-dye::after {
+    content: '';
+    position: fixed;
+    inset: -30%;
+    z-index: -1;
+    background:
+      radial-gradient(ellipse 55% 45% at 20% 25%, rgba(180,100,120,0.75) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 55% at 80% 15%, rgba(80,140,160,0.7) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 65% 75%, rgba(120,90,180,0.72) 0%, transparent 65%),
+      radial-gradient(ellipse 55% 45% at 10% 75%, rgba(180,140,60,0.68) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 55% at 88% 55%, rgba(60,120,160,0.65) 0%, transparent 55%),
+      #c9b8d8;
+    animation: blob1 18s ease-in-out infinite;
+  }
   @keyframes trailFade {
     0%   { opacity:0.75; transform:scale(1) rotate(var(--r)); }
     100% { opacity:0;    transform:scale(0.3) rotate(calc(var(--r) + 40deg)) translateY(6px); }
@@ -96,21 +109,17 @@ const css = `
     animation: fadeIn 0.45s ease;
   }
 
+  .home-page {
+    min-height: 100vh;
+  }
+
   .glitch-wrap { position: relative; margin-bottom: 28px; }
   .home-name {
     font-family: 'Instrument Sans', sans-serif;
     font-size: clamp(2.8rem,7vw,5rem);
     font-weight: 400; line-height: 1.05; letter-spacing: -0.02em;
     position: relative; z-index: 1;
-    animation: glitch 5s infinite;
-  }
-  .home-name-ghost {
-    position: absolute; inset: 0; z-index: 0;
-    font-family: 'Instrument Sans', sans-serif;
-    font-size: clamp(2.8rem,7vw,5rem);
-    font-weight: 400; line-height: 1.05; letter-spacing: -0.02em;
-    opacity: 0; user-select: none; pointer-events: none;
-    animation: glitch-shadow 5s infinite;
+    margin-bottom: 40px;
   }
   .home-intro {
     font-size: 1.05rem; line-height: 1.85;
@@ -135,7 +144,7 @@ const css = `
     color: rgba(26,20,16,0.7); font-weight: 300; max-width: 540px;
   }
   .about-bio p + p { margin-top: 1.4em; }
-  .about-bio a { color: ${TEXT}; text-underline-offset: 3px; }
+  .about-bio a { color: ${TEXT}; text-decoration: underline; text-underline-offset: 3px; }
 
   .works-page {
     padding: 150px 48px 80px;
@@ -154,11 +163,14 @@ const css = `
     display: flex; justify-content: space-between; align-items: baseline;
     padding: 13px 10px 13px 14px;
     border-bottom: 1px solid rgba(26,20,16,0.07);
-    border-left: 2px solid transparent;
     gap: 24px;
-    transition: border-left-color 0.2s, background 0.2s;
+    transition: opacity 0.2s;
   }
   .work-item:last-child { border-bottom: none; }
+  .works-section:hover .work-item { opacity: 0.45; }
+  .works-section:hover .work-item:hover { opacity: 1; }
+  .works-section:hover .work-item:hover .work-title { font-weight: 400; }
+  .works-section:hover .work-item:hover .work-title a { font-weight: 400; }
   .work-title {
     font-family: 'DM Sans', sans-serif; font-size: 1.05rem;
     color: ${TEXT}; flex: 1; font-weight: 300;
@@ -169,7 +181,7 @@ const css = `
   }
   .work-title a { color: ${TEXT}; text-decoration: none; text-underline-offset: 3px; }
   .work-title a:hover { text-decoration: underline; }
-  .work-sub { color: rgba(26,20,16,0.45); }
+  .work-sub { color: rgba(26,20,16,0.75); }
   .work-meta { font-size: 0.88rem; color: ${MUTED}; white-space: nowrap; letter-spacing: 0.05em; }
 
   .contact-email {
@@ -247,17 +259,14 @@ function spawnDot(x, y) {
   setTimeout(function() { dot.remove(); }, 1100);
 }
 
-function WorkSection({ label, works, colorKey }) {
-  const { accent, bg } = SECTION_COLORS[colorKey];
+function WorkSection({ label, works }) {
   const [active, setActive] = useState(false);
   return (
     <div className="works-section" onMouseEnter={() => setActive(true)} onMouseLeave={() => setActive(false)}>
-      <p className="works-category" style={active ? { color: accent, borderBottomColor: accent + "55" } : {}}>
-        {label}
-      </p>
+      <p className="works-category">{label}</p>
       {works.map(function(w, i) {
         return (
-          <div key={i} className="work-item" style={active ? { borderLeftColor: accent, background: bg } : {}}>
+          <div key={i} className="work-item">
             <span className="work-title">
               {w.role && <span className="work-role">{w.role}</span>}
               {w.url
@@ -292,8 +301,8 @@ export default function App() {
   }, []);
 
   return (
-    <div className="site">
-      <nav>
+    <div className="site tie-dye">
+      <nav style={{ background: "transparent", borderBottomColor: "rgba(26,20,16,0.1)" }}>
         <div className="nav-name" onClick={function() { nav("home"); }}>Ivan Krasnov</div>
         <div className="nav-links">
           {["about", "works", "contact"].map(function(p) {
@@ -307,11 +316,8 @@ export default function App() {
       </nav>
 
       {page === "home" && (
-        <div className="page">
-          <div className="glitch-wrap">
-            <div className="home-name-ghost" aria-hidden="true">Ivan Krasnov</div>
-            <h1 className="home-name">Ivan Krasnov</h1>
-          </div>
+        <div className="page home-page">
+          <h1 className="home-name">Ivan Krasnov</h1>
           <p className="home-intro">
             Ivan Krasnov is a writer, editor, translator, and musician based in Berlin, Germany.
           </p>
@@ -345,9 +351,9 @@ export default function App() {
 
       {page === "works" && (
         <div className="works-page">
-          <WorkSection label="Editorial" works={editorialWorks} colorKey="editorial" />
-          <WorkSection label="Music" works={musicWorks} colorKey="music" />
-          <WorkSection label="Radio" works={radioWorks} colorKey="radio" />
+          <WorkSection label="Editorial" works={editorialWorks} />
+          <WorkSection label="Music" works={musicWorks} />
+          <WorkSection label="Radio" works={radioWorks} />
         </div>
       )}
 
