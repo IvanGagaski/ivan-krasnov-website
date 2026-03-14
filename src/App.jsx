@@ -138,8 +138,7 @@ const css = `
   .about-photo {
     width: 220px; height: 220px; object-fit: cover;
     margin-bottom: 28px; display: block;
-    filter: saturate(0.3) brightness(1.1) opacity(0.75) sepia(0.2);
-    mix-blend-mode: multiply;
+    filter: saturate(0.25) brightness(1.05) opacity(0.7) sepia(0.15);
   }
   .about-bio {
     font-size: 1.05rem; line-height: 1.95;
