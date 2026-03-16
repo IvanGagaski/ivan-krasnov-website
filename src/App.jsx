@@ -8,7 +8,6 @@ document.head.appendChild(fontLink);
 
 const TEXT  = "#f5f2ee";
 const MUTED = "rgba(245,242,238,0.6)";
-
 const TRAIL_CHARS = ["\u00d7","\u00b7","\u2014","*","\u25e6","\u2021","\u2020","\u2219","\u2010","\u2295","\u2591","\u25aa"];
 
 const css = `
@@ -19,12 +18,10 @@ const css = `
     33%     { transform:translate(8%,12%) scale(1.08); }
     66%     { transform:translate(-6%,6%) scale(0.95); }
   }
-
   @keyframes trailFade {
     0%   { opacity:0.75; transform:scale(1) rotate(var(--r)); }
     100% { opacity:0;    transform:scale(0.3) rotate(calc(var(--r) + 40deg)) translateY(6px); }
   }
-
   @keyframes fadeIn {
     from { opacity:0; transform:translateY(10px); }
     to   { opacity:1; transform:none; }
@@ -40,19 +37,12 @@ const css = `
     isolation: isolate;
   }
 
-  .scroll-area {
-    height: 100vh;
-    overflow-y: auto;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 90px);
-    mask-image: linear-gradient(to bottom, transparent 0px, black 90px);
-  }
-
   .site::before {
     content: '';
     position: fixed;
     inset: 0;
     z-index: -2;
-    background: #5a6e58;
+    background: #1a0800;
   }
 
   .site::after {
@@ -61,12 +51,17 @@ const css = `
     inset: -30%;
     z-index: -1;
     background:
-      radial-gradient(ellipse 55% 45% at 20% 25%, rgba(160,50,50,0.85) 0%, transparent 65%),
-      radial-gradient(ellipse 50% 55% at 80% 15%, rgba(30,110,80,0.82) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 50% at 65% 75%, rgba(180,120,20,0.8) 0%, transparent 65%),
-      radial-gradient(ellipse 55% 45% at 10% 75%, rgba(20,80,90,0.82) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 55% at 88% 55%, rgba(150,60,30,0.78) 0%, transparent 55%),
-      #5a6e58;
+      radial-gradient(ellipse 50% 40% at 50% 50%, #7c2600 0%, transparent 65%),
+      radial-gradient(ellipse 40% 50% at 5%  10%, #801f1f 0%, transparent 55%),
+      radial-gradient(ellipse 45% 40% at 95% 25%, #005d53 0%, transparent 55%),
+      radial-gradient(ellipse 50% 45% at 80% 90%, #00ddbd 0%, transparent 50%),
+      radial-gradient(ellipse 40% 50% at 15% 85%, #5a7c44 0%, transparent 55%),
+      radial-gradient(ellipse 35% 40% at 60% 15%, #bf3407 0%, transparent 50%),
+      radial-gradient(ellipse 40% 35% at 30% 55%, #8b3c0d 0%, transparent 55%),
+      radial-gradient(ellipse 35% 45% at 75% 55%, #823e00 0%, transparent 50%),
+      radial-gradient(ellipse 30% 35% at 45% 75%, #bf3407 0%, transparent 50%),
+      radial-gradient(ellipse 28% 30% at 70% 35%, #801f1f 0%, transparent 45%);
+    filter: brightness(0.7);
     animation: blob1 18s ease-in-out infinite;
   }
 
@@ -83,8 +78,6 @@ const css = `
     display: flex; justify-content: space-between; align-items: center;
     padding: 22px 48px;
     background: transparent;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
     border-bottom: 1px solid rgba(245,242,238,0.1);
   }
   .nav-name {
@@ -100,13 +93,19 @@ const css = `
   }
   .nav-link:hover, .nav-link.active { color: ${TEXT}; }
 
+  .scroll-area {
+    height: 100vh;
+    overflow-y: auto;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 90px);
+    mask-image: linear-gradient(to bottom, transparent 0px, black 90px);
+  }
+
   .page {
     padding: 150px 48px 80px;
     max-width: 640px; margin: 0 auto;
     display: flex; flex-direction: column; align-items: center; text-align: center;
     animation: fadeIn 0.45s ease;
   }
-
   .page-label {
     font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase;
     color: ${MUTED}; margin-bottom: 32px;
@@ -127,12 +126,10 @@ const css = `
   }
   .about-bio p+p { margin-top: 1.4em; }
   .about-bio a { color: ${TEXT}; text-decoration: underline; text-underline-offset: 3px; }
-
   .contact-email {
     font-family: 'Instrument Sans', sans-serif;
     font-size: 1.1rem; font-weight: 400;
   }
-
   .works-page {
     padding: 150px 48px 80px;
     max-width: 820px; margin: 0 auto;
@@ -149,19 +146,14 @@ const css = `
     display: flex; justify-content: space-between; align-items: baseline;
     padding: 13px 10px 13px 14px;
     border-bottom: 1px solid rgba(245,242,238,0.07);
-    gap: 24px;
-    transition: opacity 0.2s;
+    gap: 24px; transition: opacity 0.2s;
   }
   .work-item:last-child { border-bottom: none; }
   .works-section:hover .work-item { opacity: 0.45; }
   .works-section:hover .work-item:hover { opacity: 1; }
   .works-section:hover .work-item:hover .work-title { font-weight: 400; }
   .works-section:hover .work-item:hover .work-title a { font-weight: 400; }
-
-  @media (hover: none) {
-    .works-section:hover .work-item { opacity: 1; }
-  }
-
+  @media (hover: none) { .works-section:hover .work-item { opacity: 1; } }
   .work-title {
     font-family: 'DM Sans', sans-serif; font-size: 1.05rem;
     color: ${TEXT}; flex: 1; font-weight: 300;
@@ -174,14 +166,12 @@ const css = `
   .work-title a:hover { text-decoration: underline; }
   .work-sub { color: rgba(245,242,238,0.6); }
   .work-meta { font-size: 0.88rem; color: ${MUTED}; white-space: nowrap; letter-spacing: 0.05em; }
-
   footer {
     border-top: 1px solid rgba(245,242,238,0.1);
     padding: 28px 48px;
     display: flex; justify-content: space-between;
     font-size: 0.66rem; letter-spacing: 0.1em; color: ${MUTED}; text-transform: uppercase;
   }
-
   @media (max-width: 600px) {
     nav { padding: 18px 24px; }
     .nav-links { gap: 18px; }
@@ -209,14 +199,12 @@ const editorialWorks = [
   { role: "Writing", title: "\u201cBanned Books \u2013 \u2018Banned Books\u2019 | Album Review\u201d", sub: "Post-Trash", meta: "2016", url: "https://post-trash.com/news/2016/3/20/banned-books" },
   { role: "Writing", title: "\u201cOur Favorite Albums of 2016\u201d", sub: "AdHoc", meta: "2016", url: "https://adhoc.fm/our-favorite-albums-2016/" },
 ];
-
 const musicWorks = [
   { role: "Guitar, arrangements, production", title: "Dead Finks \u2013 \u201cNew Plastik Abyss\u201d", sub: "Bretford Records", meta: "2026", url: "https://deadfinkera.bandcamp.com/album/new-plastik-abyss" },
   { role: "Bass, songwriting, arrangements, production", title: "Children \u2013 \u201cAus Spitzen Knochen\u201d", sub: "Opus Lazuli Records", meta: "2024", url: "https://ccchildren.bandcamp.com/album/aus-spitzen-knochen" },
   { role: "Bass, songwriting, arrangements, production", title: "Children \u2013 \u201cCounterfeit Fire\u201d", sub: "Rapid Eye Records", meta: "2022", url: "https://ccchildren.bandcamp.com/album/counterfeit-fire" },
   { role: "Guitar, songwriting, arrangements", title: "Diocese \u2013 \u201cDiocese\u201d", sub: "Como Tapes", meta: "2015", url: "https://diocese.bandcamp.com/album/diocese" },
 ];
-
 const radioWorks = [
   { title: "\u201cHumid Window\u201d", sub: "fsr.live Frozen Section Radio", meta: "2022\u20132024", url: "https://www.mixcloud.com/fsrlive/humid-window-14dec2022/" },
   { title: "\u201cDeep Puddle #58 boom boom pow w/ivan krasnov\u201d", sub: "Cashmere Radio", meta: "2023", url: "https://cashmereradio.com/episode/deep-puddle-58-boom-boom-pow-w-ivan-krasnov-dj-puddle/" },
@@ -234,8 +222,8 @@ function spawnDot(x, y) {
   dot.className = "trail-dot";
   dot.textContent = char;
   dot.style.cssText = [
-    "left:" + (x - size / 2) + "px",
-    "top:" + (y - size / 2) + "px",
+    "left:" + (x - size/2) + "px",
+    "top:" + (y - size/2) + "px",
     "font-size:" + size + "px",
     "--r:" + rotation + "deg",
     "transform:rotate(" + rotation + "deg)",
@@ -255,9 +243,7 @@ function WorkSection({ label, works }) {
           <div key={i} className="work-item">
             <span className="work-title">
               {w.role && <span className="work-role">{w.role}</span>}
-              {w.url
-                ? <a href={w.url} target="_blank" rel="noopener noreferrer">{w.title}</a>
-                : w.title}
+              {w.url ? <a href={w.url} target="_blank" rel="noopener noreferrer">{w.title}</a> : w.title}
               {" "}<span className="work-sub">{"\u2013"} {w.sub}</span>
             </span>
             <span className="work-meta">{w.meta}</span>
@@ -277,7 +263,7 @@ export default function App() {
 
   useEffect(function() {
     function onMove(e) {
-      var now = Date.now();
+      const now = Date.now();
       if (now - lastTrail.current < 40) return;
       lastTrail.current = now;
       spawnDot(e.clientX, e.clientY);
@@ -291,54 +277,40 @@ export default function App() {
       <nav>
         <div className="nav-name" onClick={function() { nav("about"); }}>Ivan Krasnov</div>
         <div className="nav-links">
-          {["about", "works"].map(function(p) {
+          {["about","works"].map(function(p) {
             return (
-              <button key={p} className={"nav-link" + (page === p ? " active" : "")} onClick={function() { nav(p); }}>
-                {p}
-              </button>
+              <button key={p} className={"nav-link"+(page===p?" active":"")} onClick={function() { nav(p); }}>{p}</button>
             );
           })}
         </div>
       </nav>
-
       <div className="scroll-area">
         {page === "about" && (
-        <div className="page">
-          <p className="page-label">About</p>
-          {showPhoto && (
-            <img
-              className="about-photo"
-              src={photo}
-              alt="Ivan Krasnov"
-              onError={function() { setShowPhoto(false); }}
-            />
-          )}
-          <h2 className="about-name">Ivan Krasnov</h2>
-          <div className="about-bio">
-            <p>
-              Ivan Krasnov is a writer, editor, translator, and musician based in Berlin, Germany. He is the operations manager at the non-profit knowledge curation platform{" "}
-              <a href="https://www.the-syllabus.com/" target="_blank" rel="noopener noreferrer">The Syllabus</a>,{" "}
-              where he previously worked as an editor and curator. His writing, editing, translation, and transcription work can be found in The New Yorker, Them, Flaunt Magazine, The Berliner, and more.
-            </p>
-            <p>
-              He is also part of the North American and European underground and experimental music scenes and is a former member of the bands Dead Finks, Children, Maneka, Ben Special, Swings, BBC America, Diocese, Headmaster, and more.
-            </p>
+          <div className="page">
+            <p className="page-label">About</p>
+            {showPhoto && (
+              <img className="about-photo" src={photo} alt="Ivan Krasnov" onError={function() { setShowPhoto(false); }} />
+            )}
+            <h2 className="about-name">Ivan Krasnov</h2>
+            <div className="about-bio">
+              <p>Ivan Krasnov is a writer, editor, translator, and musician based in Berlin, Germany. He is the operations manager at the non-profit knowledge curation platform{" "}
+                <a href="https://www.the-syllabus.com/" target="_blank" rel="noopener noreferrer">The Syllabus</a>,{" "}
+                where he previously worked as an editor and curator. His writing, editing, translation, and transcription work can be found in The New Yorker, Them, Flaunt Magazine, The Berliner, and more.</p>
+              <p>He is also part of the North American and European underground and experimental music scenes and is a former member of the bands Dead Finks, Children, Maneka, Ben Special, Swings, BBC America, Diocese, Headmaster, and more.</p>
+            </div>
+            <div style={{ marginTop: 48, borderTop: "1px solid rgba(245,242,238,0.15)", paddingTop: 40, width: "100%" }}>
+              <p className="page-label">Contact</p>
+              <span className="contact-email">krasnovmivan [at] gmail.com</span>
+            </div>
           </div>
-          <div style={{ marginTop: 48, borderTop: "1px solid rgba(245,242,238,0.15)", paddingTop: 40, width: "100%" }}>
-            <p className="page-label">Contact</p>
-            <span className="contact-email">krasnovmivan [at] gmail.com</span>
+        )}
+        {page === "works" && (
+          <div className="works-page">
+            <WorkSection label="Editorial" works={editorialWorks} />
+            <WorkSection label="Music" works={musicWorks} />
+            <WorkSection label="Radio" works={radioWorks} />
           </div>
-        </div>
-      )}
-
-      {page === "works" && (
-        <div className="works-page">
-          <WorkSection label="Editorial" works={editorialWorks} />
-          <WorkSection label="Music" works={musicWorks} />
-          <WorkSection label="Radio" works={radioWorks} />
-        </div>
-      )}
-
+        )}
         <footer>
           <span>{"© "}{new Date().getFullYear()}{" Ivan Krasnov"}</span>
           <span>All rights reserved</span>
