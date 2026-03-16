@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import photo from "./assets/headshot.jpg";
+import photo from "./assets/background-removed.png";
 
 const fontLink = document.createElement("link");
 fontLink.rel = "stylesheet";
