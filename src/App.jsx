@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import photo from "./assets/background-removed.png";
+const photo = "https://i.ibb.co/C5hcYjw3/background-removed.png";
 
 const fontLink = document.createElement("link");
 fontLink.rel = "stylesheet";
@@ -43,6 +43,8 @@ const css = `
   .scroll-area {
     height: 100vh;
     overflow-y: auto;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 90px);
+    mask-image: linear-gradient(to bottom, transparent 0px, black 90px);
   }
 
   .site::before {
