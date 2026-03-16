@@ -33,11 +33,16 @@ const css = `
   .site {
     font-family: 'DM Sans', sans-serif;
     color: ${TEXT};
-    min-height: 100vh;
-    overflow-x: hidden;
+    height: 100vh;
+    overflow: hidden;
     font-size: 130%;
     position: relative;
     isolation: isolate;
+  }
+
+  .scroll-area {
+    height: 100vh;
+    overflow-y: auto;
   }
 
   .site::before {
@@ -75,9 +80,9 @@ const css = `
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; justify-content: space-between; align-items: center;
     padding: 22px 48px;
-    background: rgba(50,68,48,0.95);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     border-bottom: 1px solid rgba(245,242,238,0.1);
   }
   .nav-name {
@@ -294,7 +299,8 @@ export default function App() {
         </div>
       </nav>
 
-      {page === "about" && (
+      <div className="scroll-area">
+        {page === "about" && (
         <div className="page">
           <p className="page-label">About</p>
           {showPhoto && (
@@ -331,10 +337,11 @@ export default function App() {
         </div>
       )}
 
-      <footer>
-        <span>{"© "}{new Date().getFullYear()}{" Ivan Krasnov"}</span>
-        <span>All rights reserved</span>
-      </footer>
+        <footer>
+          <span>{"© "}{new Date().getFullYear()}{" Ivan Krasnov"}</span>
+          <span>All rights reserved</span>
+        </footer>
+      </div>
     </div>
   );
 }
