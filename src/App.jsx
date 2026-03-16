@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import photo from "./assets/headshot.jpg";
 
 const fontLink = document.createElement("link");
 fontLink.rel = "stylesheet";
@@ -172,6 +173,10 @@ const css = `
   .works-section:hover .work-item:hover { opacity: 1; }
   .works-section:hover .work-item:hover .work-title { font-weight: 400; }
   .works-section:hover .work-item:hover .work-title a { font-weight: 400; }
+
+  @media (hover: none) {
+    .works-section:hover .work-item { opacity: 1; }
+  }
   .work-title {
     font-family: 'DM Sans', sans-serif; font-size: 1.05rem;
     color: ${TEXT}; flex: 1; font-weight: 300;
@@ -284,7 +289,7 @@ function WorkSection({ label, works }) {
 }
 
 export default function App() {
-  const [page, setPage] = useState("home");
+  const [page, setPage] = useState("about");
   const [showPhoto, setShowPhoto] = useState(true);
   const lastTrail = useRef(0);
 
@@ -304,9 +309,9 @@ export default function App() {
   return (
     <div className="site tie-dye">
       <nav style={{ background: "transparent", borderBottomColor: "rgba(26,20,16,0.1)" }}>
-        <div className="nav-name" onClick={function() { nav("home"); }}>Ivan Krasnov</div>
+        <div className="nav-name" onClick={function() { nav("about"); }}>Ivan Krasnov</div>
         <div className="nav-links">
-          {["about", "works", "contact"].map(function(p) {
+          {["about", "works"].map(function(p) {
             return (
               <button key={p} className={"nav-link" + (page === p ? " active" : "")} onClick={function() { nav(p); }}>
                 {p}
@@ -316,22 +321,13 @@ export default function App() {
         </div>
       </nav>
 
-      {page === "home" && (
-        <div className="page home-page">
-          <h1 className="home-name">Ivan Krasnov</h1>
-          <p className="home-intro">
-            Ivan Krasnov is a writer, editor, translator, and musician based in Berlin, Germany.
-          </p>
-        </div>
-      )}
-
       {page === "about" && (
         <div className="page">
           <p className="page-label">About</p>
           {showPhoto && (
             <img
               className="about-photo"
-              src="https://i.ibb.co/Gv5r7mRZ/ivan-krasnov-headshot-2025.avif"
+              src={photo}
               alt="Ivan Krasnov"
               onError={function() { setShowPhoto(false); }}
             />
@@ -347,6 +343,10 @@ export default function App() {
               He is also part of the North American and European underground and experimental music scenes and is a former member of the bands Dead Finks, Children, Maneka, Ben Special, Swings, BBC America, Diocese, Headmaster, and more.
             </p>
           </div>
+          <div style={{ marginTop: 48, borderTop: "1px solid rgba(26,20,16,0.12)", paddingTop: 40, width: "100%" }}>
+            <p className="page-label">Contact</p>
+            <span className="contact-email">krasnovmivan [at] gmail.com</span>
+          </div>
         </div>
       )}
 
@@ -355,13 +355,6 @@ export default function App() {
           <WorkSection label="Editorial" works={editorialWorks} />
           <WorkSection label="Music" works={musicWorks} />
           <WorkSection label="Radio" works={radioWorks} />
-        </div>
-      )}
-
-      {page === "contact" && (
-        <div className="page">
-          <p className="page-label">Contact</p>
-          <span className="contact-email">krasnovmivan [at] gmail.com</span>
         </div>
       )}
 
