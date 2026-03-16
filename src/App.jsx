@@ -1,58 +1,26 @@
 import { useState, useEffect, useRef } from "react";
-import photo from "./assets/background-removed.png";
+
+const photo = "https://i.ibb.co/Gv5r7mRZ/ivan-krasnov-headshot-2025.avif";
 
 const fontLink = document.createElement("link");
 fontLink.rel = "stylesheet";
 fontLink.href = "https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=DM+Sans:wght@300;400&display=swap";
 document.head.appendChild(fontLink);
 
-const BG    = "#ede6d3";
-const TEXT  = "#1a1410";
-const MUTED = "rgba(26,20,16,0.7)";
+const TEXT  = "#f5f2ee";
+const MUTED = "rgba(245,242,238,0.6)";
 
-const SECTION_COLORS = {
-  editorial: { accent: "#e8392a", bg: "rgba(232,57,42,0.06)" },
-  music:     { accent: "#2563eb", bg: "rgba(37,99,235,0.06)" },
-  radio:     { accent: "#16a34a", bg: "rgba(22,163,74,0.06)" },
-};
-
-const TRAIL_CHARS = ["\u00d7", "\u00b7", "\u2014", "*", "\u25e6", "\u2021", "\u2020", "\u2219", "\u2010", "\u2295", "\u2591", "\u25aa"];
+const TRAIL_CHARS = ["\u00d7","\u00b7","\u2014","*","\u25e6","\u2021","\u2020","\u2219","\u2010","\u2295","\u2591","\u25aa"];
 
 const css = `
   * { margin:0; padding:0; box-sizing:border-box; }
 
-  @keyframes blob1 { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(8%,12%) scale(1.08); } 66% { transform: translate(-6%,6%) scale(0.95); } }
-  @keyframes blob2 { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(-10%,-8%) scale(1.05); } 66% { transform: translate(7%,-5%) scale(1.1); } }
-  @keyframes blob3 { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(6%,-10%) scale(0.97); } 66% { transform: translate(-8%,8%) scale(1.06); } }
-  @keyframes blob4 { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(-5%,9%) scale(1.04); } 66% { transform: translate(9%,-6%) scale(0.98); } }
-  @keyframes blob5 { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(7%,5%) scale(1.07); } 66% { transform: translate(-4%,-9%) scale(1.02); } }
+  @keyframes blob1 {
+    0%,100% { transform:translate(0,0) scale(1); }
+    33%     { transform:translate(8%,12%) scale(1.08); }
+    66%     { transform:translate(-6%,6%) scale(0.95); }
+  }
 
-  .tie-dye {
-    position: relative;
-    isolation: isolate;
-  }
-  .tie-dye::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    background: #c9b8d8;
-    overflow: hidden;
-  }
-  .tie-dye::after {
-    content: '';
-    position: fixed;
-    inset: -30%;
-    z-index: -1;
-    background:
-      radial-gradient(ellipse 55% 45% at 20% 25%, rgba(180,100,120,0.75) 0%, transparent 65%),
-      radial-gradient(ellipse 50% 55% at 80% 15%, rgba(80,140,160,0.7) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 50% at 65% 75%, rgba(120,90,180,0.72) 0%, transparent 65%),
-      radial-gradient(ellipse 55% 45% at 10% 75%, rgba(180,140,60,0.68) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 55% at 88% 55%, rgba(60,120,160,0.65) 0%, transparent 55%),
-      #c9b8d8;
-    animation: blob1 18s ease-in-out infinite;
-  }
   @keyframes trailFade {
     0%   { opacity:0.75; transform:scale(1) rotate(var(--r)); }
     100% { opacity:0;    transform:scale(0.3) rotate(calc(var(--r) + 40deg)) translateY(6px); }
@@ -67,17 +35,39 @@ const css = `
     font-family: 'DM Sans', sans-serif;
     color: ${TEXT};
     min-height: 100vh;
-    background: ${BG};
     overflow-x: hidden;
     font-size: 130%;
+    position: relative;
+    isolation: isolate;
+  }
+
+  .site::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background: #5a6e58;
+  }
+
+  .site::after {
+    content: '';
+    position: fixed;
+    inset: -30%;
+    z-index: -1;
+    background:
+      radial-gradient(ellipse 55% 45% at 20% 25%, rgba(160,50,50,0.85) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 55% at 80% 15%, rgba(30,110,80,0.82) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 65% 75%, rgba(180,120,20,0.8) 0%, transparent 65%),
+      radial-gradient(ellipse 55% 45% at 10% 75%, rgba(20,80,90,0.82) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 55% at 88% 55%, rgba(150,60,30,0.78) 0%, transparent 55%),
+      #5a6e58;
+    animation: blob1 18s ease-in-out infinite;
   }
 
   .trail-dot {
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
+    position: fixed; pointer-events: none; z-index: 9999;
     font-family: 'DM Sans', sans-serif;
-    color: rgba(26,20,16,0.55);
+    color: rgba(245,242,238,0.55);
     animation: trailFade 0.8s ease-out forwards;
     user-select: none;
   }
@@ -86,9 +76,8 @@ const css = `
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; justify-content: space-between; align-items: center;
     padding: 22px 48px;
-    background: rgba(237,230,211,0.88);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(26,20,16,0.1);
+    background: transparent;
+    border-bottom: 1px solid rgba(245,242,238,0.1);
   }
   .nav-name {
     font-family: 'Instrument Sans', sans-serif;
@@ -110,23 +99,6 @@ const css = `
     animation: fadeIn 0.45s ease;
   }
 
-  .home-page {
-    min-height: 100vh;
-  }
-
-  .glitch-wrap { position: relative; margin-bottom: 28px; }
-  .home-name {
-    font-family: 'Instrument Sans', sans-serif;
-    font-size: clamp(2.8rem,7vw,5rem);
-    font-weight: 400; line-height: 1.05; letter-spacing: -0.02em;
-    position: relative; z-index: 1;
-    margin-bottom: 40px;
-  }
-  .home-intro {
-    font-size: 1.05rem; line-height: 1.85;
-    color: rgba(26,20,16,0.6); font-weight: 300; max-width: 420px;
-  }
-
   .page-label {
     font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase;
     color: ${MUTED}; margin-bottom: 32px;
@@ -143,10 +115,15 @@ const css = `
   }
   .about-bio {
     font-size: 1.05rem; line-height: 1.95;
-    color: rgba(26,20,16,0.7); font-weight: 300; max-width: 540px;
+    color: rgba(245,242,238,0.8); font-weight: 300; max-width: 540px;
   }
-  .about-bio p + p { margin-top: 1.4em; }
+  .about-bio p+p { margin-top: 1.4em; }
   .about-bio a { color: ${TEXT}; text-decoration: underline; text-underline-offset: 3px; }
+
+  .contact-email {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 1.1rem; font-weight: 400;
+  }
 
   .works-page {
     padding: 150px 48px 80px;
@@ -157,14 +134,13 @@ const css = `
   .works-category {
     font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase;
     margin-bottom: 20px; padding-bottom: 10px;
-    border-bottom: 1px solid rgba(26,20,16,0.12);
-    transition: color 0.25s, border-color 0.25s;
+    border-bottom: 1px solid rgba(245,242,238,0.12);
     color: ${MUTED};
   }
   .work-item {
     display: flex; justify-content: space-between; align-items: baseline;
     padding: 13px 10px 13px 14px;
-    border-bottom: 1px solid rgba(26,20,16,0.07);
+    border-bottom: 1px solid rgba(245,242,238,0.07);
     gap: 24px;
     transition: opacity 0.2s;
   }
@@ -177,6 +153,7 @@ const css = `
   @media (hover: none) {
     .works-section:hover .work-item { opacity: 1; }
   }
+
   .work-title {
     font-family: 'DM Sans', sans-serif; font-size: 1.05rem;
     color: ${TEXT}; flex: 1; font-weight: 300;
@@ -187,16 +164,11 @@ const css = `
   }
   .work-title a { color: ${TEXT}; text-decoration: none; text-underline-offset: 3px; }
   .work-title a:hover { text-decoration: underline; }
-  .work-sub { color: rgba(26,20,16,0.75); }
+  .work-sub { color: rgba(245,242,238,0.6); }
   .work-meta { font-size: 0.88rem; color: ${MUTED}; white-space: nowrap; letter-spacing: 0.05em; }
 
-  .contact-email {
-    font-family: 'Instrument Sans', sans-serif;
-    font-size: 1.1rem; font-weight: 400;
-  }
-
   footer {
-    border-top: 1px solid rgba(26,20,16,0.1);
+    border-top: 1px solid rgba(245,242,238,0.1);
     padding: 28px 48px;
     display: flex; justify-content: space-between;
     font-size: 0.66rem; letter-spacing: 0.1em; color: ${MUTED}; text-transform: uppercase;
@@ -307,8 +279,8 @@ export default function App() {
   }, []);
 
   return (
-    <div className="site tie-dye">
-      <nav style={{ background: "transparent", borderBottomColor: "rgba(26,20,16,0.1)" }}>
+    <div className="site">
+      <nav>
         <div className="nav-name" onClick={function() { nav("about"); }}>Ivan Krasnov</div>
         <div className="nav-links">
           {["about", "works"].map(function(p) {
@@ -343,7 +315,7 @@ export default function App() {
               He is also part of the North American and European underground and experimental music scenes and is a former member of the bands Dead Finks, Children, Maneka, Ben Special, Swings, BBC America, Diocese, Headmaster, and more.
             </p>
           </div>
-          <div style={{ marginTop: 48, borderTop: "1px solid rgba(26,20,16,0.12)", paddingTop: 40, width: "100%" }}>
+          <div style={{ marginTop: 48, borderTop: "1px solid rgba(245,242,238,0.15)", paddingTop: 40, width: "100%" }}>
             <p className="page-label">Contact</p>
             <span className="contact-email">krasnovmivan [at] gmail.com</span>
           </div>
