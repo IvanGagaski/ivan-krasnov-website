@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-
-const photo = "https://i.ibb.co/Gv5r7mRZ/ivan-krasnov-headshot-2025.avif";
+import photo from "./assets/background-removed.png";
 
 const fontLink = document.createElement("link");
 fontLink.rel = "stylesheet";
