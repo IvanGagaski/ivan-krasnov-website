@@ -32,7 +32,7 @@ const css = `
     color: ${TEXT};
     height: 100vh;
     overflow: hidden;
-    font-size: 130%;
+    font-size: 112%;
     position: relative;
     isolation: isolate;
   }
@@ -73,110 +73,167 @@ const css = `
     user-select: none;
   }
 
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 22px 48px;
-    background: transparent;
-    border-bottom: 1px solid rgba(245,242,238,0.1);
-  }
-  .nav-name {
-    font-family: 'Instrument Sans', sans-serif;
-    font-size: 1rem; font-weight: 400; letter-spacing: 0.03em; cursor: pointer;
-  }
-  .nav-links { display: flex; gap: 32px; }
-  .nav-link {
-    font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
-    cursor: pointer; color: ${MUTED}; font-weight: 400;
-    transition: color 0.2s; border: none; background: none;
-    font-family: 'DM Sans', sans-serif;
-  }
-  .nav-link:hover, .nav-link.active { color: ${TEXT}; }
-
-  .scroll-area {
+  /* ===================== DESKTOP — SPLIT LAYOUT ===================== */
+  .split {
+    display: flex;
     height: 100vh;
-    overflow-y: auto;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 90px);
-    mask-image: linear-gradient(to bottom, transparent 0px, black 90px);
   }
 
-  .page {
-    padding: 150px 48px 80px;
-    max-width: 640px; margin: 0 auto;
-    display: flex; flex-direction: column; align-items: center; text-align: center;
-    animation: fadeIn 0.45s ease;
+  .left {
+    width: 45%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 48px 60px 64px;
+    border-right: 1px solid rgba(245,242,238,0.1);
+    flex-shrink: 0;
   }
-  .page-label {
-    font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase;
-    color: ${MUTED}; margin-bottom: 32px;
-  }
-  .about-name {
+
+  .site-name {
     font-family: 'Instrument Sans', sans-serif;
-    font-size: clamp(1.8rem,4vw,2.4rem);
-    font-weight: 400; margin-bottom: 32px; line-height: 1.1;
+    font-size: 1.4rem; font-weight: 400; letter-spacing: 0.02em;
+    margin-bottom: 48px;
   }
-  .about-photo {
-    width: 220px; height: 220px; object-fit: cover;
-    margin-bottom: 28px; display: block;
-    filter: saturate(0.25) brightness(1.05) opacity(0.7) sepia(0.15);
-  }
+
   .about-bio {
-    font-size: 1.05rem; line-height: 1.95;
-    color: rgba(245,242,238,0.8); font-weight: 300; max-width: 540px;
+    font-size: 0.82rem; line-height: 1.9;
+    color: rgba(245,242,238,0.78); font-weight: 300; max-width: 380px;
   }
-  .about-bio p+p { margin-top: 1.4em; }
+  .about-bio p+p { margin-top: 1.2em; }
   .about-bio a { color: ${TEXT}; text-decoration: underline; text-underline-offset: 3px; }
+
+  .contact-block {
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(245,242,238,0.12);
+  }
+  .contact-label {
+    font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: ${MUTED}; margin-bottom: 12px; display: block;
+  }
   .contact-email {
     font-family: 'Instrument Sans', sans-serif;
-    font-size: 1.1rem; font-weight: 400;
+    font-size: 0.88rem; font-weight: 400; display: block; margin-bottom: 8px;
   }
-  .works-page {
-    padding: 150px 48px 80px;
-    max-width: 820px; margin: 0 auto;
-    animation: fadeIn 0.45s ease;
+  .contact-link {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 0.88rem; font-weight: 400;
+    color: ${TEXT}; text-decoration: underline; text-underline-offset: 3px;
+    display: block;
   }
-  .works-section { margin-bottom: 48px; }
+
+  .right {
+    flex: 1;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 64px 48px 64px 52px;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 60px, black calc(100% - 40px), transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0px, black 60px, black calc(100% - 40px), transparent 100%);
+  }
+
+  /* ===================== MOBILE — STACKED LAYOUT ===================== */
+  @media (max-width: 700px) {
+    .site { height: auto; overflow: auto; font-size: 130%; }
+    .split { display: none; }
+    .mobile-layout { display: block; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 24px;
+      background: transparent;
+      border-bottom: 1px solid rgba(245,242,238,0.1);
+    }
+    .nav-name {
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 1rem; font-weight: 400; letter-spacing: 0.03em; cursor: pointer;
+    }
+    .nav-links { display: flex; gap: 18px; }
+    .nav-link {
+      font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+      cursor: pointer; color: ${MUTED}; font-weight: 400;
+      transition: color 0.2s; border: none; background: none;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .nav-link:hover, .nav-link.active { color: ${TEXT}; }
+
+    .mobile-scroll {
+      height: 100vh;
+      overflow-y: auto;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 80px);
+      mask-image: linear-gradient(to bottom, transparent 0px, black 80px);
+    }
+    .mobile-page {
+      padding: 100px 24px 60px;
+      max-width: 640px; margin: 0 auto;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      animation: fadeIn 0.45s ease;
+    }
+    .page-label {
+      font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: ${MUTED}; margin-bottom: 32px;
+    }
+    .mobile-about-bio {
+      font-size: 1.05rem; line-height: 1.95;
+      color: rgba(245,242,238,0.8); font-weight: 300; max-width: 540px;
+    }
+    .mobile-about-bio p+p { margin-top: 1.4em; }
+    .mobile-about-bio a { color: ${TEXT}; text-decoration: underline; text-underline-offset: 3px; }
+    .mobile-contact {
+      margin-top: 48px; padding-top: 40px; width: 100%;
+      border-top: 1px solid rgba(245,242,238,0.15);
+    }
+    .mobile-works { padding: 0 24px 60px; max-width: 820px; margin: 0 auto; }
+    .mobile-footer {
+      padding: 20px 24px; text-align: center;
+      font-size: 0.66rem; letter-spacing: 0.1em; color: ${MUTED}; text-transform: uppercase;
+      border-top: 1px solid rgba(245,242,238,0.1);
+    }
+  }
+
+  @media (min-width: 701px) {
+    .mobile-layout { display: none; }
+  }
+
+  /* ===================== SHARED WORKS STYLES ===================== */
+  .works-section { margin-bottom: 44px; }
   .works-category {
-    font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase;
-    margin-bottom: 20px; padding-bottom: 10px;
+    font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase;
+    margin-bottom: 16px; padding-bottom: 10px;
     border-bottom: 1px solid rgba(245,242,238,0.12);
     color: ${MUTED};
   }
   .work-item {
     display: flex; justify-content: space-between; align-items: baseline;
-    padding: 13px 10px 13px 14px;
+    padding: 11px 0 11px 12px;
     border-bottom: 1px solid rgba(245,242,238,0.07);
-    gap: 24px; transition: opacity 0.2s;
+    gap: 20px; transition: opacity 0.2s;
   }
   .work-item:last-child { border-bottom: none; }
-  .works-section:hover .work-item { opacity: 0.45; }
+  .works-section:hover .work-item { opacity: 0.4; }
   .works-section:hover .work-item:hover { opacity: 1; }
   .works-section:hover .work-item:hover .work-title { font-weight: 400; }
   .works-section:hover .work-item:hover .work-title a { font-weight: 400; }
   @media (hover: none) { .works-section:hover .work-item { opacity: 1; } }
+
   .work-title {
-    font-family: 'DM Sans', sans-serif; font-size: 1.05rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.8rem;
     color: ${TEXT}; flex: 1; font-weight: 300;
   }
   .work-role {
-    color: ${MUTED}; font-size: 0.88rem;
-    display: block; margin-bottom: 3px; font-weight: 300;
+    color: ${MUTED}; font-size: 0.68rem;
+    display: block; margin-bottom: 2px; font-weight: 300;
   }
   .work-title a { color: ${TEXT}; text-decoration: none; text-underline-offset: 3px; }
   .work-title a:hover { text-decoration: underline; }
-  .work-sub { color: rgba(245,242,238,0.6); }
-  .work-meta { font-size: 0.88rem; color: ${MUTED}; white-space: nowrap; letter-spacing: 0.05em; }
-  footer {
-    border-top: 1px solid rgba(245,242,238,0.1);
-    padding: 28px 48px;
-    display: flex; justify-content: space-between;
-    font-size: 0.66rem; letter-spacing: 0.1em; color: ${MUTED}; text-transform: uppercase;
-  }
-  @media (max-width: 600px) {
-    nav { padding: 18px 24px; }
-    .nav-links { gap: 18px; }
-    .page, .works-page { padding: 100px 24px 60px; }
-    footer { padding: 20px 24px; flex-direction: column; gap: 8px; text-align: center; }
+  .work-sub { color: rgba(245,242,238,0.55); }
+  .work-meta { font-size: 0.68rem; color: ${MUTED}; white-space: nowrap; letter-spacing: 0.05em; }
+
+  .desktop-footer {
+    margin-top: 24px; padding-top: 20px;
+    border-top: 1px solid rgba(245,242,238,0.08);
+    font-size: 0.58rem; letter-spacing: 0.1em; color: ${MUTED}; text-transform: uppercase;
   }
 `;
 
@@ -254,12 +311,27 @@ function WorkSection({ label, works }) {
   );
 }
 
-export default function App() {
-  const [page, setPage] = useState("about");
-  const [showPhoto, setShowPhoto] = useState(true);
-  const lastTrail = useRef(0);
+function AboutContent({ mobile }) {
+  return (
+    <>
+      <div className="about-bio" style={mobile ? { fontSize: "1.05rem", maxWidth: "540px", color: "rgba(245,242,238,0.8)" } : {}}>
+        <p>Ivan Krasnov is a writer, editor, translator, and musician based in Berlin, Germany. He is the operations manager at the non-profit knowledge curation platform{" "}
+          <a href="https://www.the-syllabus.com/" target="_blank" rel="noopener noreferrer">The Syllabus</a>,{" "}
+          where he previously worked as an editor and curator. His writing, editing, translation, and transcription work can be found in The New Yorker, Them, Flaunt Magazine, The Berliner, and more.</p>
+        <p>He is also part of the North American and European underground and experimental music scenes and is a former member of the bands Dead Finks, Children, Maneka, Ben Special, Swings, BBC America, Diocese, Headmaster, and more.</p>
+      </div>
+      <div className="contact-block">
+        <span className="contact-label">Contact</span>
+        <span className="contact-email">krasnovmivan [at] gmail.com</span>
+        <a href="https://www.linkedin.com/in/ivan-krasnov-283b1710a/" target="_blank" rel="noopener noreferrer" className="contact-link">LinkedIn</a>
+      </div>
+    </>
+  );
+}
 
-  const nav = function(p) { setPage(p); window.scrollTo(0, 0); };
+export default function App() {
+  const [mobilePage, setMobilePage] = useState("about");
+  const lastTrail = useRef(0);
 
   useEffect(function() {
     function onMove(e) {
@@ -274,47 +346,51 @@ export default function App() {
 
   return (
     <div className="site">
-      <nav>
-        <div className="nav-name" onClick={function() { nav("about"); }}>Ivan Krasnov</div>
-        <div className="nav-links">
-          {["about","works"].map(function(p) {
-            return (
-              <button key={p} className={"nav-link"+(page===p?" active":"")} onClick={function() { nav(p); }}>{p}</button>
-            );
-          })}
-        </div>
-      </nav>
-      <div className="scroll-area">
-        {page === "about" && (
-          <div className="page">
-            <p className="page-label">About</p>
 
-            <h2 className="about-name">Ivan Krasnov</h2>
-            <div className="about-bio">
-              <p>Ivan Krasnov is a writer, editor, translator, and musician based in Berlin, Germany. He is the operations manager at the non-profit knowledge curation platform{" "}
-                <a href="https://www.the-syllabus.com/" target="_blank" rel="noopener noreferrer">The Syllabus</a>,{" "}
-                where he previously worked as an editor and curator. His writing, editing, translation, and transcription work can be found in The New Yorker, Them, Flaunt Magazine, The Berliner, and more.</p>
-              <p>He is also part of the North American and European underground and experimental music scenes and is a former member of the bands Dead Finks, Children, Maneka, Ben Special, Swings, BBC America, Diocese, Headmaster, and more.</p>
-            </div>
-            <div style={{ marginTop: 48, borderTop: "1px solid rgba(245,242,238,0.15)", paddingTop: 40, width: "100%" }}>
-              <p className="page-label">Contact</p>
-              <span className="contact-email">krasnovmivan [at] gmail.com</span>
-              <a href="https://www.linkedin.com/in/ivan-krasnov-283b1710a/" target="_blank" rel="noopener noreferrer" style={{ display: "block", marginTop: 16, fontFamily: "'Instrument Sans', sans-serif", fontSize: "1.1rem", color: TEXT, textDecoration: "underline", textUnderlineOffset: "3px" }}>LinkedIn</a>
-            </div>
-          </div>
-        )}
-        {page === "works" && (
-          <div className="works-page">
-            <WorkSection label="Editorial" works={editorialWorks} />
-            <WorkSection label="Music" works={musicWorks} />
-            <WorkSection label="Radio" works={radioWorks} />
-          </div>
-        )}
-        <footer>
-          <span>{"© "}{new Date().getFullYear()}{" Ivan Krasnov"}</span>
-          <span>All rights reserved</span>
-        </footer>
+      {/* DESKTOP SPLIT LAYOUT */}
+      <div className="split">
+        <div className="left">
+          <div className="site-name">Ivan Krasnov</div>
+          <AboutContent mobile={false} />
+        </div>
+        <div className="right">
+          <WorkSection label="Editorial" works={editorialWorks} />
+          <WorkSection label="Music" works={musicWorks} />
+          <WorkSection label="Radio" works={radioWorks} />
+          <div className="desktop-footer">© {new Date().getFullYear()} Ivan Krasnov — All rights reserved</div>
+        </div>
       </div>
+
+      {/* MOBILE STACKED LAYOUT */}
+      <div className="mobile-layout">
+        <nav>
+          <div className="nav-name">Ivan Krasnov</div>
+          <div className="nav-links">
+            {["about","works"].map(function(p) {
+              return (
+                <button key={p} className={"nav-link"+(mobilePage===p?" active":"")} onClick={function() { setMobilePage(p); window.scrollTo(0,0); }}>{p}</button>
+              );
+            })}
+          </div>
+        </nav>
+        <div className="mobile-scroll">
+          {mobilePage === "about" && (
+            <div className="mobile-page">
+              <p className="page-label">About</p>
+              <AboutContent mobile={true} />
+            </div>
+          )}
+          {mobilePage === "works" && (
+            <div className="mobile-works">
+              <WorkSection label="Editorial" works={editorialWorks} />
+              <WorkSection label="Music" works={musicWorks} />
+              <WorkSection label="Radio" works={radioWorks} />
+            </div>
+          )}
+          <div className="mobile-footer">© {new Date().getFullYear()} Ivan Krasnov — All rights reserved</div>
+        </div>
+      </div>
+
     </div>
   );
 }
