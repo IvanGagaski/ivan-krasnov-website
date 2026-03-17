@@ -264,7 +264,7 @@ const editorialWorks = [
 const musicWorks = [
   { role: "Guitar, arrangements, production", title: "Dead Finks \u2013 \u201cNew Plastik Abyss\u201d", sub: "Bretford Records", meta: "2026", url: "https://deadfinkera.bandcamp.com/album/new-plastik-abyss" },
   { role: "Bass, songwriting, arrangements, production", title: "Children \u2013 \u201cAus Spitzen Knochen\u201d", sub: "Opus Lazuli Records", meta: "2024", url: "https://ccchildren.bandcamp.com/album/aus-spitzen-knochen" },
-  { role: "Bass, songwriting, arrangements, production", title: "Children \u2013 \u201cCounterfeit Fire\u201d", sub: "Rapid Eye Records", meta: "2022", url: "https://ccchildren.bandcamp.com/album/counterfeit-fire" },
+  { role: "Bass, guitar, songwriting, arrangements, production", title: "Children \u2013 \u201cCounterfeit Fire\u201d", sub: "Rapid Eye Records", meta: "2022", url: "https://ccchildren.bandcamp.com/album/counterfeit-fire" },
   { role: "Guitar, songwriting, arrangements", title: "Diocese \u2013 \u201cDiocese\u201d", sub: "Como Tapes", meta: "2015", url: "https://diocese.bandcamp.com/album/diocese" },
 ];
 const radioWorks = [
