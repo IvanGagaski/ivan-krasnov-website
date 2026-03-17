@@ -288,9 +288,7 @@ export default function App() {
         {page === "about" && (
           <div className="page">
             <p className="page-label">About</p>
-            {showPhoto && (
-              <img className="about-photo" src={photo} alt="Ivan Krasnov" onError={function() { setShowPhoto(false); }} />
-            )}
+
             <h2 className="about-name">Ivan Krasnov</h2>
             <div className="about-bio">
               <p>Ivan Krasnov is a writer, editor, translator, and musician based in Berlin, Germany. He is the operations manager at the non-profit knowledge curation platform{" "}
