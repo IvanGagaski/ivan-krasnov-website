@@ -299,6 +299,7 @@ export default function App() {
             <div style={{ marginTop: 48, borderTop: "1px solid rgba(245,242,238,0.15)", paddingTop: 40, width: "100%" }}>
               <p className="page-label">Contact</p>
               <span className="contact-email">krasnovmivan [at] gmail.com</span>
+              <a href="https://www.linkedin.com/in/ivan-krasnov-283b1710a/" target="_blank" rel="noopener noreferrer" style={{ display: "block", marginTop: 16, fontFamily: "'Instrument Sans', sans-serif", fontSize: "1.1rem", color: TEXT, textDecoration: "underline", textUnderlineOffset: "3px" }}>LinkedIn</a>
             </div>
           </div>
         )}
