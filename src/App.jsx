@@ -32,7 +32,7 @@ const css = `
     color: ${TEXT};
     height: 100vh;
     overflow: hidden;
-    font-size: 112%;
+    font-size: 145%;
     position: relative;
     isolation: isolate;
   }
@@ -92,12 +92,12 @@ const css = `
 
   .site-name {
     font-family: 'Instrument Sans', sans-serif;
-    font-size: 1.4rem; font-weight: 400; letter-spacing: 0.02em;
+    font-size: 1.7rem; font-weight: 400; letter-spacing: 0.02em;
     margin-bottom: 48px;
   }
 
   .about-bio {
-    font-size: 0.82rem; line-height: 1.9;
+    font-size: 1rem; line-height: 1.9;
     color: rgba(245,242,238,0.78); font-weight: 300; max-width: 380px;
   }
   .about-bio p+p { margin-top: 1.2em; }
@@ -137,6 +137,11 @@ const css = `
     .site { height: auto; overflow: auto; font-size: 130%; }
     .split { display: none; }
     .mobile-layout { display: block; }
+
+    .mobile-works .work-title { font-size: 1.05rem; }
+    .mobile-works .work-role { font-size: 0.85rem; }
+    .mobile-works .work-meta { font-size: 0.85rem; }
+    .mobile-works .works-category { font-size: 0.72rem; }
 
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -218,11 +223,11 @@ const css = `
   @media (hover: none) { .works-section:hover .work-item { opacity: 1; } }
 
   .work-title {
-    font-family: 'DM Sans', sans-serif; font-size: 0.8rem;
+    font-family: 'DM Sans', sans-serif; font-size: 1rem;
     color: ${TEXT}; flex: 1; font-weight: 300;
   }
   .work-role {
-    color: ${MUTED}; font-size: 0.68rem;
+    color: ${MUTED}; font-size: 0.82rem;
     display: block; margin-bottom: 2px; font-weight: 300;
   }
   .work-title a { color: ${TEXT}; text-decoration: none; text-underline-offset: 3px; }
