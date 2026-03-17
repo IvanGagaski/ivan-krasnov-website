@@ -189,7 +189,7 @@ const css = `
       margin-top: 48px; padding-top: 40px; width: 100%;
       border-top: 1px solid rgba(245,242,238,0.15);
     }
-    .mobile-works { padding: 0 24px 60px; max-width: 820px; margin: 0 auto; }
+    .mobile-works { padding: 80px 24px 60px; max-width: 820px; margin: 0 auto; }
     .mobile-footer {
       padding: 20px 24px; text-align: center;
       font-size: 0.66rem; letter-spacing: 0.1em; color: ${MUTED}; text-transform: uppercase;
