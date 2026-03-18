@@ -85,7 +85,7 @@ const css = `
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 64px 48px 60px 64px;
+    padding: 52px 48px 60px 64px;
     border-right: 1px solid rgba(245,242,238,0.1);
     flex-shrink: 0;
   }
