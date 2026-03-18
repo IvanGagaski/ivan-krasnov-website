@@ -84,8 +84,8 @@ const css = `
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 60px 48px 60px 64px;
+    justify-content: flex-start;
+    padding: 64px 48px 60px 64px;
     border-right: 1px solid rgba(245,242,238,0.1);
     flex-shrink: 0;
   }
@@ -172,7 +172,7 @@ const css = `
     .mobile-page {
       padding: 100px 24px 60px;
       max-width: 640px; margin: 0 auto;
-      display: flex; flex-direction: column; align-items: center; text-align: center;
+      display: flex; flex-direction: column; align-items: flex-start; text-align: left;
       animation: fadeIn 0.45s ease;
     }
     .page-label {
