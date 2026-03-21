@@ -1,10 +1,15 @@
 import { useState, useEffect, useRef } from "react";
-import photo from "./assets/background-removed.png";
 
 const fontLink = document.createElement("link");
 fontLink.rel = "stylesheet";
 fontLink.href = "https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=DM+Sans:wght@300;400&display=swap";
 document.head.appendChild(fontLink);
+
+const photo = "https://i.ibb.co/C5hcYjw3/background-removed.png";
+
+const TEXT  = "#f5f2ee";
+const MUTED = "rgba(245,242,238,0.6)";
+const TRAIL_CHARS = ["\u00d7","\u00b7","\u2014","*","\u25e6","\u2021","\u2020","\u2219","\u2010","\u2295","\u2591","\u25aa"];
 
 const css = `
   * { margin:0; padding:0; box-sizing:border-box; }
@@ -28,7 +33,7 @@ const css = `
     color: ${TEXT};
     height: 100vh;
     overflow: hidden;
-    font-size: 145%;
+    font-size: 112%;
     position: relative;
     isolation: isolate;
   }
@@ -128,6 +133,46 @@ const css = `
     mask-image: linear-gradient(to bottom, transparent 0px, black 60px, black calc(100% - 40px), transparent 100%);
   }
 
+  /* ===================== SHARED WORKS STYLES ===================== */
+  .works-section { margin-bottom: 44px; }
+  .works-category {
+    font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+    margin-bottom: 16px; padding-bottom: 10px;
+    border-bottom: 1px solid rgba(245,242,238,0.12);
+    color: ${MUTED};
+  }
+  .work-item {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 11px 0 11px 12px;
+    border-bottom: 1px solid rgba(245,242,238,0.07);
+    gap: 20px; transition: opacity 0.2s;
+  }
+  .work-item:last-child { border-bottom: none; }
+  .works-section:hover .work-item { opacity: 0.4; }
+  .works-section:hover .work-item:hover { opacity: 1; }
+  .works-section:hover .work-item:hover .work-title { font-weight: 400; }
+  .works-section:hover .work-item:hover .work-title a { font-weight: 400; }
+  @media (hover: none) { .works-section:hover .work-item { opacity: 1; } }
+
+  .work-title {
+    font-family: 'DM Sans', sans-serif; font-size: 1rem;
+    color: ${TEXT}; flex: 1; font-weight: 300;
+  }
+  .work-role {
+    color: ${MUTED}; font-size: 0.82rem;
+    display: block; margin-bottom: 2px; font-weight: 300;
+  }
+  .work-title a { color: ${TEXT}; text-decoration: none; text-underline-offset: 3px; }
+  .work-title a:hover { text-decoration: underline; }
+  .work-sub { color: rgba(245,242,238,0.55); }
+  .work-meta { font-size: 0.82rem; color: ${MUTED}; white-space: nowrap; letter-spacing: 0.05em; }
+
+  .desktop-footer {
+    margin-top: 24px; padding-top: 20px;
+    border-top: 1px solid rgba(245,242,238,0.08);
+    font-size: 0.58rem; letter-spacing: 0.1em; color: ${MUTED}; text-transform: uppercase;
+  }
+
   /* ===================== MOBILE — STACKED LAYOUT ===================== */
   @media (max-width: 700px) {
     .site { height: auto; overflow: auto; font-size: 130%; }
@@ -195,46 +240,6 @@ const css = `
 
   @media (min-width: 701px) {
     .mobile-layout { display: none; }
-  }
-
-  /* ===================== SHARED WORKS STYLES ===================== */
-  .works-section { margin-bottom: 44px; }
-  .works-category {
-    font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase;
-    margin-bottom: 16px; padding-bottom: 10px;
-    border-bottom: 1px solid rgba(245,242,238,0.12);
-    color: ${MUTED};
-  }
-  .work-item {
-    display: flex; justify-content: space-between; align-items: baseline;
-    padding: 11px 0 11px 12px;
-    border-bottom: 1px solid rgba(245,242,238,0.07);
-    gap: 20px; transition: opacity 0.2s;
-  }
-  .work-item:last-child { border-bottom: none; }
-  .works-section:hover .work-item { opacity: 0.4; }
-  .works-section:hover .work-item:hover { opacity: 1; }
-  .works-section:hover .work-item:hover .work-title { font-weight: 400; }
-  .works-section:hover .work-item:hover .work-title a { font-weight: 400; }
-  @media (hover: none) { .works-section:hover .work-item { opacity: 1; } }
-
-  .work-title {
-    font-family: 'DM Sans', sans-serif; font-size: 1rem;
-    color: ${TEXT}; flex: 1; font-weight: 300;
-  }
-  .work-role {
-    color: ${MUTED}; font-size: 0.82rem;
-    display: block; margin-bottom: 2px; font-weight: 300;
-  }
-  .work-title a { color: ${TEXT}; text-decoration: none; text-underline-offset: 3px; }
-  .work-title a:hover { text-decoration: underline; }
-  .work-sub { color: rgba(245,242,238,0.55); }
-  .work-meta { font-size: 0.68rem; color: ${MUTED}; white-space: nowrap; letter-spacing: 0.05em; }
-
-  .desktop-footer {
-    margin-top: 24px; padding-top: 20px;
-    border-top: 1px solid rgba(245,242,238,0.08);
-    font-size: 0.58rem; letter-spacing: 0.1em; color: ${MUTED}; text-transform: uppercase;
   }
 `;
 
@@ -312,10 +317,10 @@ function WorkSection({ label, works }) {
   );
 }
 
-function AboutContent({ mobile }) {
+function AboutContent() {
   return (
     <>
-      <div className="about-bio" style={mobile ? { fontSize: "1.05rem", maxWidth: "540px", color: "rgba(245,242,238,0.8)" } : {}}>
+      <div className="about-bio">
         <p>Ivan Krasnov is a writer, editor, translator, and musician based in Berlin, Germany. He is the operations manager at the non-profit knowledge curation platform{" "}
           <a href="https://www.the-syllabus.com/" target="_blank" rel="noopener noreferrer">The Syllabus</a>,{" "}
           where he previously worked as an editor and curator. His writing, editing, translation, and transcription work can be found in The New Yorker, Them, Flaunt Magazine, The Berliner, and more.</p>
@@ -347,12 +352,11 @@ export default function App() {
 
   return (
     <div className="site">
-
-      {/* DESKTOP SPLIT LAYOUT */}
+      {/* DESKTOP */}
       <div className="split">
         <div className="left">
           <div className="site-name">Ivan Krasnov</div>
-          <AboutContent mobile={false} />
+          <AboutContent />
         </div>
         <div className="right">
           <WorkSection label="Editorial" works={editorialWorks} />
@@ -362,7 +366,7 @@ export default function App() {
         </div>
       </div>
 
-      {/* MOBILE STACKED LAYOUT */}
+      {/* MOBILE */}
       <div className="mobile-layout">
         <nav>
           <div className="nav-name">Ivan Krasnov</div>
@@ -378,7 +382,7 @@ export default function App() {
           {mobilePage === "about" && (
             <div className="mobile-page">
               <p className="page-label">About</p>
-              <AboutContent mobile={true} />
+              <AboutContent />
             </div>
           )}
           {mobilePage === "works" && (
@@ -391,7 +395,6 @@ export default function App() {
           <div className="mobile-footer">© {new Date().getFullYear()} Ivan Krasnov — All rights reserved</div>
         </div>
       </div>
-
     </div>
   );
 }
