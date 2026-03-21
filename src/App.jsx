@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-const photo = "https://i.ibb.co/C5hcYjw3/background-removed.png";
+import photo from "./assets/background-removed.png";
 
-const TEXT  = "#f5f2ee";
-const MUTED = "rgba(245,242,238,0.6)";
-const TRAIL_CHARS = ["\u00d7","\u00b7","\u2014","*","\u25e6","\u2021","\u2020","\u2219","\u2010","\u2295","\u2591","\u25aa"];
+const fontLink = document.createElement("link");
+fontLink.rel = "stylesheet";
+fontLink.href = "https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=DM+Sans:wght@300;400&display=swap";
+document.head.appendChild(fontLink);
 
 const css = `
   * { margin:0; padding:0; box-sizing:border-box; }
