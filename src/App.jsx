@@ -2,22 +2,36 @@ import { useState, useEffect, useRef } from "react";
 
 const fontLink = document.createElement("link");
 fontLink.rel = "stylesheet";
-fontLink.href = "https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=DM+Sans:wght@300;400&display=swap";
+fontLink.href =
+  "https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=DM+Sans:wght@300;400&display=swap";
 document.head.appendChild(fontLink);
 
 const photo = "https://i.ibb.co/C5hcYjw3/background-removed.png";
 
-const TEXT  = "#f5f2ee";
+const TEXT = "#f5f2ee";
 const MUTED = "rgba(245,242,238,0.6)";
-const TRAIL_CHARS = ["\u00d7","\u00b7","\u2014","*","\u25e6","\u2021","\u2020","\u2219","\u2010","\u2295","\u2591","\u25aa"];
+const TRAIL_CHARS = [
+  "\u00d7",
+  "\u00b7",
+  "\u2014",
+  "*",
+  "\u25e6",
+  "\u2021",
+  "\u2020",
+  "\u2219",
+  "\u2010",
+  "\u2295",
+  "\u2591",
+  "\u25aa",
+];
 
 const css = `
   * { margin:0; padding:0; box-sizing:border-box; }
 
   @keyframes blob1 {
-    0%,100% { transform:translate(0,0) scale(1); }
-    33%     { transform:translate(8%,12%) scale(1.08); }
-    66%     { transform:translate(-6%,6%) scale(0.95); }
+    0%,100% { background-position: 0% 0%; }
+    33%     { background-position: 8% 12%; }
+    66%     { background-position: -6% 6%; }
   }
   @keyframes trailFade {
     0%   { opacity:0.75; transform:scale(1) rotate(var(--r)); }
@@ -36,33 +50,34 @@ const css = `
     font-size: 112%;
     position: relative;
     isolation: isolate;
+    perspective: 1px;
   }
 
-  .site::before {
-    content: '';
+  .bg-base {
     position: fixed;
     inset: 0;
     z-index: -2;
     background: #1a0800;
   }
 
-  .site::after {
-    content: '';
+  .bg-gradient {
     position: fixed;
     inset: -30%;
     z-index: -1;
+    will-change: background-position;
+    transform: translateZ(0);
+    background-size: 120% 120%;
     background:
-      radial-gradient(ellipse 50% 40% at 50% 50%, #7c2600 0%, transparent 65%),
-      radial-gradient(ellipse 40% 50% at 5%  10%, #801f1f 0%, transparent 55%),
-      radial-gradient(ellipse 45% 40% at 95% 25%, #005d53 0%, transparent 55%),
-      radial-gradient(ellipse 50% 45% at 80% 90%, #00ddbd 0%, transparent 50%),
-      radial-gradient(ellipse 40% 50% at 15% 85%, #5a7c44 0%, transparent 55%),
-      radial-gradient(ellipse 35% 40% at 60% 15%, #bf3407 0%, transparent 50%),
-      radial-gradient(ellipse 40% 35% at 30% 55%, #8b3c0d 0%, transparent 55%),
-      radial-gradient(ellipse 35% 45% at 75% 55%, #823e00 0%, transparent 50%),
-      radial-gradient(ellipse 30% 35% at 45% 75%, #bf3407 0%, transparent 50%),
-      radial-gradient(ellipse 28% 30% at 70% 35%, #801f1f 0%, transparent 45%);
-    filter: brightness(0.7);
+      radial-gradient(ellipse 50% 40% at 50% 50%, #4a1800 0%, transparent 65%),
+      radial-gradient(ellipse 40% 50% at 5%  10%, #4d1212 0%, transparent 55%),
+      radial-gradient(ellipse 45% 40% at 95% 25%, #003832 0%, transparent 55%),
+      radial-gradient(ellipse 50% 45% at 80% 90%, #008570 0%, transparent 50%),
+      radial-gradient(ellipse 40% 50% at 15% 85%, #364b28 0%, transparent 55%),
+      radial-gradient(ellipse 35% 40% at 60% 15%, #731f04 0%, transparent 50%),
+      radial-gradient(ellipse 40% 35% at 30% 55%, #532408 0%, transparent 55%),
+      radial-gradient(ellipse 35% 45% at 75% 55%, #4e2500 0%, transparent 50%),
+      radial-gradient(ellipse 30% 35% at 45% 75%, #731f04 0%, transparent 50%),
+      radial-gradient(ellipse 28% 30% at 70% 35%, #4d1212 0%, transparent 45%);
     animation: blob1 18s ease-in-out infinite;
   }
 
@@ -248,31 +263,159 @@ styleEl.textContent = css;
 document.head.appendChild(styleEl);
 
 const editorialWorks = [
-  { role: "Research, transcription, editing", title: "A Sense of Rebellion", sub: "a podcast by Evgeny Morozov", meta: "2024", url: "https://www.sense-of-rebellion.com/" },
-  { role: "Transcription, editing, website management", title: "The Santiago Boys", sub: "a podcast by Evgeny Morozov", meta: "2023", url: "https://www.the-santiago-boys.com/" },
-  { role: "Transcription, fact-checking", title: "\u201cIn Berlin, These Queer Ukrainian Refugees Are Finding Community and Hope Amid Loss\u201d", sub: "Them", meta: "2022", url: "https://www.them.us/story/lgbtq-ukraine-refugees-in-berlin-resettling-war-with-russia" },
-  { role: "Transcription, fact-checking", title: "\u201cIn France, Elder Care Comes with the Mail\u201d", sub: "The New Yorker", meta: "2019", url: "https://www.newyorker.com/culture/annals-of-inquiry/in-france-elder-care-comes-with-the-mail" },
-  { role: "Interview, writing", title: "\u201cJennifer Herrema of Royal Trux | Lend Me Your Ears and You\u2019ll Get a 12-inch Alt-Noise Rock Joint, and Maybe an Autograph\u201d", sub: "Flaunt Magazine", meta: "2019", url: "https://www.flaunt.com/blog/jennifer-herrema-of-royal-trux" },
-  { role: "Writing, editing", title: "\u201cThe Fuzz on Alex\u201d", sub: "The Berliner", meta: "2018", url: "https://www.the-berliner.com/politics/the-fuzz-on-alex/" },
-  { role: "Writing, editing", title: "\u201cNon-Dude Artists\u2019 Den\u201d", sub: "The Berliner", meta: "2018", url: "https://www.the-berliner.com/berlin/non-dude-artists-den/" },
-  { role: "Interview, writing", title: "\u201cHunter Hunt-Hendrix\u2019s New Video Opera May Be His Most Mind-Altering Work Yet\u201d", sub: "AdHoc", meta: "2018", url: "https://adhoc.fm/liturgy-hunter-hunt-hendrix-origin-of-the-alimonies-interview/" },
-  { role: "Writing", title: "\u201cBichkraft \u2013 \u2018800\u2019 | Album Review\u201d", sub: "Post-Trash", meta: "2018", url: "https://post-trash.com/news/2018/3/19/bichkraft-800-album-review" },
-  { role: "Writing", title: "\u201cDove Lady \u2013 \u2018F\u2019 | Album Review\u201d", sub: "Post-Trash", meta: "2018", url: "https://post-trash.com/news/2018/2/11/dove-lady-f-album-review" },
-  { role: "Writing", title: "\u201cLumpy & The Dumpers \u2013 \u2018Those Pickled Fuckers\u2019 | Album Review\u201d", sub: "Post-Trash", meta: "2017", url: "https://post-trash.com/news/2017/12/14/lumpy-the-dumpers-those-pickled-fuckers-album-review" },
-  { role: "Writing", title: "\u201cBanned Books \u2013 \u2018Banned Books\u2019 | Album Review\u201d", sub: "Post-Trash", meta: "2016", url: "https://post-trash.com/news/2016/3/20/banned-books" },
-  { role: "Writing", title: "\u201cOur Favorite Albums of 2016\u201d", sub: "AdHoc", meta: "2016", url: "https://adhoc.fm/our-favorite-albums-2016/" },
+  {
+    role: "Research, transcription, editing",
+    title: "A Sense of Rebellion",
+    sub: "a podcast by Evgeny Morozov",
+    meta: "2024",
+    url: "https://www.sense-of-rebellion.com/",
+  },
+  {
+    role: "Transcription, editing, website management",
+    title: "The Santiago Boys",
+    sub: "a podcast by Evgeny Morozov",
+    meta: "2023",
+    url: "https://www.the-santiago-boys.com/",
+  },
+  {
+    role: "Transcription, fact-checking",
+    title:
+      "\u201cIn Berlin, These Queer Ukrainian Refugees Are Finding Community and Hope Amid Loss\u201d",
+    sub: "Them",
+    meta: "2022",
+    url: "https://www.them.us/story/lgbtq-ukraine-refugees-in-berlin-resettling-war-with-russia",
+  },
+  {
+    role: "Transcription, fact-checking",
+    title: "\u201cIn France, Elder Care Comes with the Mail\u201d",
+    sub: "The New Yorker",
+    meta: "2019",
+    url: "https://www.newyorker.com/culture/annals-of-inquiry/in-france-elder-care-comes-with-the-mail",
+  },
+  {
+    role: "Interview, writing",
+    title:
+      "\u201cJennifer Herrema of Royal Trux | Lend Me Your Ears and You\u2019ll Get a 12-inch Alt-Noise Rock Joint, and Maybe an Autograph\u201d",
+    sub: "Flaunt Magazine",
+    meta: "2019",
+    url: "https://www.flaunt.com/blog/jennifer-herrema-of-royal-trux",
+  },
+  {
+    role: "Writing, editing",
+    title: "\u201cThe Fuzz on Alex\u201d",
+    sub: "The Berliner",
+    meta: "2018",
+    url: "https://www.the-berliner.com/politics/the-fuzz-on-alex/",
+  },
+  {
+    role: "Writing, editing",
+    title: "\u201cNon-Dude Artists\u2019 Den\u201d",
+    sub: "The Berliner",
+    meta: "2018",
+    url: "https://www.the-berliner.com/berlin/non-dude-artists-den/",
+  },
+  {
+    role: "Interview, writing",
+    title:
+      "\u201cHunter Hunt-Hendrix\u2019s New Video Opera May Be His Most Mind-Altering Work Yet\u201d",
+    sub: "AdHoc",
+    meta: "2018",
+    url: "https://adhoc.fm/liturgy-hunter-hunt-hendrix-origin-of-the-alimonies-interview/",
+  },
+  {
+    role: "Writing",
+    title: "\u201cBichkraft \u2013 \u2018800\u2019 | Album Review\u201d",
+    sub: "Post-Trash",
+    meta: "2018",
+    url: "https://post-trash.com/news/2018/3/19/bichkraft-800-album-review",
+  },
+  {
+    role: "Writing",
+    title: "\u201cDove Lady \u2013 \u2018F\u2019 | Album Review\u201d",
+    sub: "Post-Trash",
+    meta: "2018",
+    url: "https://post-trash.com/news/2018/2/11/dove-lady-f-album-review",
+  },
+  {
+    role: "Writing",
+    title:
+      "\u201cLumpy & The Dumpers \u2013 \u2018Those Pickled Fuckers\u2019 | Album Review\u201d",
+    sub: "Post-Trash",
+    meta: "2017",
+    url: "https://post-trash.com/news/2017/12/14/lumpy-the-dumpers-those-pickled-fuckers-album-review",
+  },
+  {
+    role: "Writing",
+    title:
+      "\u201cBanned Books \u2013 \u2018Banned Books\u2019 | Album Review\u201d",
+    sub: "Post-Trash",
+    meta: "2016",
+    url: "https://post-trash.com/news/2016/3/20/banned-books",
+  },
+  {
+    role: "Writing",
+    title: "\u201cOur Favorite Albums of 2016\u201d",
+    sub: "AdHoc",
+    meta: "2016",
+    url: "https://adhoc.fm/our-favorite-albums-2016/",
+  },
 ];
 const musicWorks = [
-  { role: "Guitar, arrangements, production", title: "Dead Finks \u2013 \u201cNew Plastik Abyss\u201d", sub: "Bretford Records", meta: "2026", url: "https://deadfinkera.bandcamp.com/album/new-plastik-abyss" },
-  { role: "Bass, songwriting, arrangements, production", title: "Children \u2013 \u201cAus Spitzen Knochen\u201d", sub: "Opus Lazuli Records", meta: "2024", url: "https://ccchildren.bandcamp.com/album/aus-spitzen-knochen" },
-  { role: "Bass, guitar, songwriting, arrangements, production", title: "Children \u2013 \u201cCounterfeit Fire\u201d", sub: "Rapid Eye Records", meta: "2022", url: "https://ccchildren.bandcamp.com/album/counterfeit-fire" },
-  { role: "Guitar, songwriting, arrangements", title: "Diocese \u2013 \u201cDiocese\u201d", sub: "Como Tapes", meta: "2015", url: "https://diocese.bandcamp.com/album/diocese" },
+  {
+    role: "Guitar, arrangements, production",
+    title: "Dead Finks \u2013 \u201cNew Plastik Abyss\u201d",
+    sub: "Bretford Records",
+    meta: "2026",
+    url: "https://deadfinkera.bandcamp.com/album/new-plastik-abyss",
+  },
+  {
+    role: "Bass, songwriting, arrangements, production",
+    title: "Children \u2013 \u201cAus Spitzen Knochen\u201d",
+    sub: "Opus Lazuli Records",
+    meta: "2024",
+    url: "https://ccchildren.bandcamp.com/album/aus-spitzen-knochen",
+  },
+  {
+    role: "Bass, guitar, songwriting, arrangements, production",
+    title: "Children \u2013 \u201cCounterfeit Fire\u201d",
+    sub: "Rapid Eye Records",
+    meta: "2022",
+    url: "https://ccchildren.bandcamp.com/album/counterfeit-fire",
+  },
+  {
+    role: "Guitar, songwriting, arrangements",
+    title: "Diocese \u2013 \u201cDiocese\u201d",
+    sub: "Como Tapes",
+    meta: "2015",
+    url: "https://diocese.bandcamp.com/album/diocese",
+  },
 ];
 const radioWorks = [
-  { title: "\u201cHumid Window\u201d", sub: "fsr.live Frozen Section Radio", meta: "2022\u20132024", url: "https://www.mixcloud.com/fsrlive/humid-window-14dec2022/" },
-  { title: "\u201cDeep Puddle #58 boom boom pow w/ivan krasnov\u201d", sub: "Cashmere Radio", meta: "2023", url: "https://cashmereradio.com/episode/deep-puddle-58-boom-boom-pow-w-ivan-krasnov-dj-puddle/" },
-  { title: "\u201cAutobahn Takeover with Joseph Thomas\u201d", sub: "Refuge Worldwide", meta: "2022", url: "https://refugeworldwide.com/radio/autobahn-joseph-thomas-and-ivan-krasnov-17-dec-2022" },
-  { title: "\u201cMarlon et al. w/ Morpheena and DJ Ivy from the Eastside\u201d", sub: "Internet Public Radio", meta: "2019", url: "https://www.mixcloud.com/internetpublicradio/marlon-et-al-w-morpheena-and-dj-ivy-from-the-eastside-3rd-december-2019/" },
+  {
+    title: "\u201cHumid Window\u201d",
+    sub: "fsr.live Frozen Section Radio",
+    meta: "2022\u20132024",
+    url: "https://www.mixcloud.com/fsrlive/humid-window-14dec2022/",
+  },
+  {
+    title: "\u201cDeep Puddle #58 boom boom pow w/ivan krasnov\u201d",
+    sub: "Cashmere Radio",
+    meta: "2023",
+    url: "https://cashmereradio.com/episode/deep-puddle-58-boom-boom-pow-w-ivan-krasnov-dj-puddle/",
+  },
+  {
+    title: "\u201cAutobahn Takeover with Joseph Thomas\u201d",
+    sub: "Refuge Worldwide",
+    meta: "2022",
+    url: "https://refugeworldwide.com/radio/autobahn-joseph-thomas-and-ivan-krasnov-17-dec-2022",
+  },
+  {
+    title:
+      "\u201cMarlon et al. w/ Morpheena and DJ Ivy from the Eastside\u201d",
+    sub: "Internet Public Radio",
+    meta: "2019",
+    url: "https://www.mixcloud.com/internetpublicradio/marlon-et-al-w-morpheena-and-dj-ivy-from-the-eastside-3rd-december-2019/",
+  },
 ];
 
 let trailIdx = 0;
@@ -285,29 +428,43 @@ function spawnDot(x, y) {
   dot.className = "trail-dot";
   dot.textContent = char;
   dot.style.cssText = [
-    "left:" + (x - size/2) + "px",
-    "top:" + (y - size/2) + "px",
+    "left:" + (x - size / 2) + "px",
+    "top:" + (y - size / 2) + "px",
     "font-size:" + size + "px",
     "--r:" + rotation + "deg",
     "transform:rotate(" + rotation + "deg)",
     "animation-duration:" + (0.6 + Math.random() * 0.5) + "s",
   ].join(";");
   document.body.appendChild(dot);
-  setTimeout(function() { dot.remove(); }, 1100);
+  setTimeout(function () {
+    dot.remove();
+  }, 1100);
 }
 
 function WorkSection({ label, works }) {
   const [active, setActive] = useState(false);
   return (
-    <div className="works-section" onMouseEnter={() => setActive(true)} onMouseLeave={() => setActive(false)}>
+    <div
+      className="works-section"
+      onMouseEnter={() => setActive(true)}
+      onMouseLeave={() => setActive(false)}
+    >
       <p className="works-category">{label}</p>
-      {works.map(function(w, i) {
+      {works.map(function (w, i) {
         return (
           <div key={i} className="work-item">
             <span className="work-title">
               {w.role && <span className="work-role">{w.role}</span>}
-              {w.url ? <a href={w.url} target="_blank" rel="noopener noreferrer">{w.title}</a> : w.title}
-              {" "}<span className="work-sub">{"\u2013"} {w.sub}</span>
+              {w.url ? (
+                <a href={w.url} target="_blank" rel="noopener noreferrer">
+                  {w.title}
+                </a>
+              ) : (
+                w.title
+              )}{" "}
+              <span className="work-sub">
+                {"\u2013"} {w.sub}
+              </span>
             </span>
             <span className="work-meta">{w.meta}</span>
           </div>
@@ -321,15 +478,39 @@ function AboutContent() {
   return (
     <>
       <div className="about-bio">
-        <p>Ivan Krasnov is a writer, editor, translator, and musician based in Berlin, Germany. He is the operations manager at the non-profit knowledge curation platform{" "}
-          <a href="https://www.the-syllabus.com/" target="_blank" rel="noopener noreferrer">The Syllabus</a>,{" "}
-          where he previously worked as an editor and curator. His writing, editing, translation, and transcription work can be found in The New Yorker, Them, Flaunt Magazine, The Berliner, and more.</p>
-        <p>He is also part of the North American and European underground and experimental music scenes and is a former member of the bands Dead Finks, Children, Maneka, Ben Special, Swings, BBC America, Diocese, Headmaster, and more.</p>
+        <p>
+          Ivan Krasnov is a writer, editor, translator, and musician based in
+          Berlin, Germany. He is the operations manager at the non-profit
+          knowledge curation platform{" "}
+          <a
+            href="https://www.the-syllabus.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            The Syllabus
+          </a>
+          , where he previously worked as an editor and curator. His writing,
+          editing, translation, and transcription work can be found in The New
+          Yorker, Them, Flaunt Magazine, The Berliner, and more.
+        </p>
+        <p>
+          He is also part of the North American and European underground and
+          experimental music scenes and is a former member of the bands Dead
+          Finks, Children, Maneka, Ben Special, Swings, BBC America, Diocese,
+          Headmaster, and more.
+        </p>
       </div>
       <div className="contact-block">
         <span className="contact-label">Contact</span>
         <span className="contact-email">krasnovmivan [at] gmail.com</span>
-        <a href="https://www.linkedin.com/in/ivan-krasnov-283b1710a/" target="_blank" rel="noopener noreferrer" className="contact-link">LinkedIn</a>
+        <a
+          href="https://www.linkedin.com/in/ivan-krasnov-283b1710a/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="contact-link"
+        >
+          LinkedIn
+        </a>
       </div>
     </>
   );
@@ -339,7 +520,7 @@ export default function App() {
   const [mobilePage, setMobilePage] = useState("about");
   const lastTrail = useRef(0);
 
-  useEffect(function() {
+  useEffect(function () {
     function onMove(e) {
       const now = Date.now();
       if (now - lastTrail.current < 40) return;
@@ -347,11 +528,15 @@ export default function App() {
       spawnDot(e.clientX, e.clientY);
     }
     window.addEventListener("mousemove", onMove);
-    return function() { window.removeEventListener("mousemove", onMove); };
+    return function () {
+      window.removeEventListener("mousemove", onMove);
+    };
   }, []);
 
   return (
     <div className="site">
+      <div className="bg-base" />
+      <div className="bg-gradient" />
       {/* DESKTOP */}
       <div className="split">
         <div className="left">
@@ -362,7 +547,9 @@ export default function App() {
           <WorkSection label="Editorial" works={editorialWorks} />
           <WorkSection label="Music" works={musicWorks} />
           <WorkSection label="Radio" works={radioWorks} />
-          <div className="desktop-footer">© {new Date().getFullYear()} Ivan Krasnov — All rights reserved</div>
+          <div className="desktop-footer">
+            © {new Date().getFullYear()} Ivan Krasnov — All rights reserved
+          </div>
         </div>
       </div>
 
@@ -371,9 +558,18 @@ export default function App() {
         <nav>
           <div className="nav-name">Ivan Krasnov</div>
           <div className="nav-links">
-            {["about","works"].map(function(p) {
+            {["about", "works"].map(function (p) {
               return (
-                <button key={p} className={"nav-link"+(mobilePage===p?" active":"")} onClick={function() { setMobilePage(p); window.scrollTo(0,0); }}>{p}</button>
+                <button
+                  key={p}
+                  className={"nav-link" + (mobilePage === p ? " active" : "")}
+                  onClick={function () {
+                    setMobilePage(p);
+                    window.scrollTo(0, 0);
+                  }}
+                >
+                  {p}
+                </button>
               );
             })}
           </div>
@@ -392,7 +588,9 @@ export default function App() {
               <WorkSection label="Radio" works={radioWorks} />
             </div>
           )}
-          <div className="mobile-footer">© {new Date().getFullYear()} Ivan Krasnov — All rights reserved</div>
+          <div className="mobile-footer">
+            © {new Date().getFullYear()} Ivan Krasnov — All rights reserved
+          </div>
         </div>
       </div>
     </div>
