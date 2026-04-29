@@ -29,9 +29,10 @@ const css = `
   * { margin:0; padding:0; box-sizing:border-box; }
 
   @keyframes blob1 {
-    0%,100% { background-position: 0% 0%; }
-    33%     { background-position: 8% 12%; }
-    66%     { background-position: -6% 6%; }
+    0%,100% { transform: translate3d(0,0,0) scale(1); }
+    25%     { transform: translate3d(10%,15%,0) scale(1.1); }
+    50%     { transform: translate3d(-8%,8%,0) scale(0.93); }
+    75%     { transform: translate3d(6%,-10%,0) scale(1.06); }
   }
   @keyframes trailFade {
     0%   { opacity:0.75; transform:scale(1) rotate(var(--r)); }
@@ -64,9 +65,8 @@ const css = `
     position: fixed;
     inset: -30%;
     z-index: -1;
-    will-change: background-position;
+    will-change: transform;
     transform: translateZ(0);
-    background-size: 120% 120%;
     background:
       radial-gradient(ellipse 50% 40% at 50% 50%, #4a1800 0%, transparent 65%),
       radial-gradient(ellipse 40% 50% at 5%  10%, #4d1212 0%, transparent 55%),
